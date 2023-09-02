@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 
 @Entity
 public class Appointment {
@@ -95,7 +96,7 @@ public class Appointment {
         // Case 2: A.finishes == B.finishes 
         // Case 3: A.starts < B.finishes && B.finishes < A.finishes
         // Case 4: B.starts < A.starts && A.finishes < B.finishes
-        if (appointment.getRoom().getRoomName().equals(this.getRoom().getRoomName())){ 
+        if (appointment.getRoom().getRoomName().equals(this.getRoom().getRoomName())){
             if (this.getStartsAt().equals(appointment.getStartsAt()) || 
                     appointment.getFinishesAt().equals(this.getFinishesAt())){
                 return true;
@@ -107,7 +108,6 @@ public class Appointment {
                 return true;
             }
         }
-        
         return false;
     }
 

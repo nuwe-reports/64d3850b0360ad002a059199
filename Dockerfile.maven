@@ -1,0 +1,15 @@
+
+FROM maven:3.8.4-openjdk-11 AS builder
+
+WORKDIR /app
+COPY . /app
+
+RUN mvn test
+RUN mvn package -DskipTests
+
+FROM openjdk:11-jre-slim
+
+WORKDIR /app
+COPY --from=builder /app/target/accenture-techhub-0.0.1-SNAPSHOT.war /app
+
+CMD ["java", "-jar", "accenture-techhub-0.0.1-SNAPSHOT.war"]
